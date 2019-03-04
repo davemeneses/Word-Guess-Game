@@ -1,55 +1,114 @@
 // This top portion of code is just to define my variables that will be global and start creating the spots where players will guess letters.
 
 // I created a variable that is an array of all the skateboarding brands I chose to use
-var brands = [
-  "welcome",
-  "independent",
-  "vans",
-  "primitive",
-  "thrasher",
-  "girl",
-  "transworld",
-  "uprise"
-];
+var brands = ["welcome", "vans", "primitive", "thrasher", "girl", "uprise"];
 
 // this word variable is used to determine which of the  words in the brand array is chosen for that specific instance of the game.
-var word = brands[Math.floor(Math.random() * brands.length)];
-// console.log(word);
+var word;
+
+// number of wins
+var wins;
+
+// letter that's pressed
+var currentGuess;
+
+// letters the user has guessed so far
+var guessedLetters = [];
+
+// if they guess a correct letter, it needs to not subtract from guesses
+
+// starting number of guesses = 10
+var remainingGuesses = 10;
+
+// while () {
+
+// }
+
+function selectWord() {
+  word = brands[Math.floor(Math.random() * brands.length)];
+}
+
+selectWord();
+console.log(word);
+
+var letters = word.split("");
+console.log(letters);
 
 // This next portion is an array where I will replace all the individual letters from whatever word is selected previously with underscores _
 var answerArray = [];
 
-for (var i = 0; i < word.length; i++) {
-  answerArray[i] = "_";
-}
-var remainingLetters = word.length;
-
-// This next portion is the actual loop where the game is created
-
-while (remainingLetters > 0) {
-  // this shows player's their progress
-  alert(answerArray.join(" "));
-  // for this section i need to not make it a prompt and instead an "onkeyup" and something like document.getElementbyID("displayedwords").text to show this content on the page instead of a pop up.
-  var guess = prompt("Guess a letter, or click Cancel to stop playing.");
-  // if you press cancel it stops the game
-  if (guess === null) {
-    break;
-  } else if (guess.length !== 1) {
-    // this portion is checking to make sure you only guess 1 letter (not more than one or a space)
-    alert("Please enter a single letter.");
-  } else {
-    // this is the portion that checks if the letter guessed is in the word
-    for (var j = 0; j < word.length; j++) {
-      if (word[j] === guess) {
-        answerArray[j] = guess;
-        remainingLetters--;
-      }
-    }
+function makeUnderscores() {
+  for (var i = 0; i < word.length; i++) {
+    answerArray[i] = "_";
   }
 }
 
-alert(answerArray.join(" "));
-alert("Good job! The answer was " + word);
+makeUnderscores();
+console.log(answerArray);
+
+document.onkeyup = function(event) {
+  currentGuess = String.fromCharCode(event.keyCode).toLowerCase();
+  console.log("User guess: " + currentGuess);
+
+  var isCorrect = false;
+
+  for (var i = 0; i < letters.length; i++) {
+    if (letters[i] == currentGuess) {
+      // replace underscore in the correct position in the array
+      isCorrect = true;
+    }
+
+    if ((isCorrect = true)) {
+      for (var j = 0; j < answerArray.length; j++) {
+        if (letters[j] === currentGuess) {
+          answerArray[j] = currentGuess;
+        }
+      }
+    }
+  }
+
+  console.log(answerArray);
+
+  // just subtracts with each keypress
+  // if (remainingGuesses > 0) {
+  //   remainingGuesses--;
+  // } else if (remainingGuesses == 0) {
+  //   alert("you looooose, idiot");
+  // }
+
+  // console.log(remainingGuesses);
+
+  var remainingLetters = word.length;
+};
+// getElementById example
+// document.getElementById("place").innerHTML = ("regular farts")
+
+// This next portion is the actual loop where the game is created
+
+// while (remainingLetters > 0) {
+//   // this shows player's their progress
+//   alert(answerArray.join(" "));
+
+//   // for this section i need to not make it a prompt and instead an "onkeyup" and something like document.getElementbyID("displayedwords").text to show this content on the page instead of a pop up.
+//   var guess = prompt("Guess a letter, or click Cancel to stop playing.");
+//   // if you press cancel it stops the game
+//   if (guess === null) {
+//     break;
+//   } else if (guess.length !== 1) {
+//     // this portion is checking to make sure you only guess 1 letter (not more than one or a space)
+//     alert("Please enter a single letter.");
+//   } else {
+//     // this is the portion that checks if the letter guessed is in the word
+//     for (var j = 0; j < word.length; j++) {
+//       if (word[j] === guess) {
+//         answerArray[j] = guess;
+//         remainingLetters--;
+//       }
+//     }
+//   }
+
+// alert(answerArray.join(" "));
+// alert("Good job! The answer was " + word);
 // var name = prompt("what's your real name?");
 
 // console.log("hello " + name);
