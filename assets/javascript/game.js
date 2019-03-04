@@ -52,8 +52,6 @@ function displayWinsAndGuesses() {
 }
 
 displayWinsAndGuesses();
-// document.getElementById("blanks").innerHTML = answerArray.join("");
-
 document.onkeyup = function(event) {
   currentGuess = String.fromCharCode(event.keyCode).toLowerCase();
   console.log("User guess: " + currentGuess);
@@ -90,9 +88,6 @@ document.onkeyup = function(event) {
   }
 
   document.getElementById("blanks").innerHTML = answerArray.join("");
-
-  // console.log(remainingGuesses);
-  document.getElementById("blanks").innerHTML = answerArray;
 
   var remainingLetters = word.length;
 };
