@@ -7,7 +7,7 @@ var brands = ["welcome", "vans", "primitive", "thrasher", "girl", "uprise"];
 var word;
 
 // number of wins
-var wins;
+var wins = 0;
 
 // letter that's pressed
 var currentGuess;
@@ -39,18 +39,30 @@ var answerArray = [];
 
 function makeUnderscores() {
   for (var i = 0; i < word.length; i++) {
-    answerArray[i] = "_";
+    answerArray[i] = "_ ";
   }
 }
-
 makeUnderscores();
-console.log(answerArray);
+
+function displayWinsAndGuesses() {
+  document.getElementById("guessesRemaining").innerHTML =
+    "Guesses Remaining: " + remainingGuesses;
+  document.getElementById("wins").innerHTML = "You've won " + wins;
+  document.getElementById("blanks").innerHTML = answerArray.join("");
+}
+
+displayWinsAndGuesses();
+// document.getElementById("blanks").innerHTML = answerArray.join("");
 
 document.onkeyup = function(event) {
   currentGuess = String.fromCharCode(event.keyCode).toLowerCase();
   console.log("User guess: " + currentGuess);
 
   var isCorrect = false;
+
+  // function won() {
+  //   alert("you did it doofus");
+  // }
 
   for (var i = 0; i < letters.length; i++) {
     if (letters[i] == currentGuess) {
@@ -65,18 +77,22 @@ document.onkeyup = function(event) {
         }
       }
     }
+    // me trying to turn this into a string
+    // if (answerArray.toString() === brands[i]) {
+    //   won();
+    // }
+  }
+  // just subtracts with each keypress
+  if (remainingGuesses > 0) {
+    remainingGuesses--;
+  } else if (remainingGuesses == 0) {
+    alert("you looooose, idiot");
   }
 
-  console.log(answerArray);
-
-  // just subtracts with each keypress
-  // if (remainingGuesses > 0) {
-  //   remainingGuesses--;
-  // } else if (remainingGuesses == 0) {
-  //   alert("you looooose, idiot");
-  // }
+  document.getElementById("blanks").innerHTML = answerArray.join("");
 
   // console.log(remainingGuesses);
+  document.getElementById("blanks").innerHTML = answerArray;
 
   var remainingLetters = word.length;
 };
